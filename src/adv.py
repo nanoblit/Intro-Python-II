@@ -73,7 +73,7 @@ def try_taking_item(cmd):
 
   item_to_take = None
   for item in player.current_room.items:
-    if item.name.lower() == cmd[1].lower():
+    if item.name.lower() == cmd[1]:
       item_to_take = item
       break
   
@@ -95,7 +95,7 @@ def try_dropping_item(cmd):
 
   item_to_drop = None
   for item in player.items:
-    if item.name.lower() == cmd[1].lower():
+    if item.name.lower() == cmd[1]:
       item_to_drop = item
       break
   
@@ -154,19 +154,21 @@ player = Player('Sam', room['outside'])
 
 while True:
   print(f"You are in {player.current_room.name}.")
+  print(f"{player.current_room.description}.")
 
   print_items_on_the_ground()
 
-  print("-----------------------------------------------------------------------")
-  print("|Valid commands: n - go north, s - go south, e - go east, w - go west.|")
-  print("|[take/get] [item name] - pick up an item.                            |")
-  print("|[drop] [item name] - drop an item.                                   |")
-  print("|[i/inventory] - see items in your inventory                          |")
-  print("-----------------------------------------------------------------------")
-  cmd = input("Give a command: ")
+  print("---------------------------------------------------------------")
+  print("|[n] - go north, [s] - go south, [e] - go east, [w] - go west.|")
+  print("|[take/get] [item name] - pick up an item.                    |")
+  print("|[drop] [item name] - drop an item.                           |")
+  print("|[i/inventory] - see items in your inventory.                 |")
+  print("---------------------------------------------------------------")
+  cmd = input("Give a command: ").lower()
 
+  print("============")
+  
   if not try_moving(cmd) and not try_taking_item(cmd) and \
      not try_dropping_item(cmd) and not try_quitting(cmd) and \
      not try_showing_inventory(cmd):
     print("Invalid command.")
-  print("============")
