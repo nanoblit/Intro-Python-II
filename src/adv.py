@@ -36,7 +36,7 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-def try_moving(dir):
+def move(dir):
   next_room = None
   current_room = player.current_room
 
@@ -58,14 +58,14 @@ def try_moving(dir):
 
   return True
 
-def try_quitting(cmd):
+def quit_game(cmd):
   if cmd == "q":
     quit()
     return True
   else:
     return False
 
-def try_taking_item(cmd):
+def take_item(cmd):
   cmd = cmd.split(" ")
   
   if len(cmd) < 2 or not (cmd[0] == 'take' or cmd[0] == 'get'):
@@ -87,7 +87,7 @@ def try_taking_item(cmd):
 
   return True
 
-def try_dropping_item(cmd):
+def drop_item(cmd):
   cmd = cmd.split(" ")
   
   if len(cmd) < 2 or not (cmd[0] == 'drop'):
@@ -109,7 +109,7 @@ def try_dropping_item(cmd):
 
   return True
 
-def try_showing_inventory(cmd):
+def show_inventory(cmd):
   if not (cmd == "inventory" or cmd == "i"):
     return False
 
@@ -167,8 +167,8 @@ while True:
   cmd = input("Give a command: ").lower()
 
   print("============")
-  
-  if not try_moving(cmd) and not try_taking_item(cmd) and \
-     not try_dropping_item(cmd) and not try_quitting(cmd) and \
-     not try_showing_inventory(cmd):
+
+  if not move(cmd) and not take_item(cmd) and \
+     not drop_item(cmd) and not quit_game(cmd) and \
+     not show_inventory(cmd):
     print("Invalid command.")
